@@ -25,6 +25,8 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:2.0.0-alpha2'
     //FAB dependencies
     implementation 'com.android.support:design:27.1.1'
+    implementation 'android.arch.persistence.room:compiler:1.1.1'
+    annotationProcessor 'android.arch.persistence.room:compiler:1.1.1'
 
 }
 
