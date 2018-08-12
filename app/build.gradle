@@ -36,6 +36,3 @@ dependencies {
     testImplementation 'android.arch.persistence.room:testing:1.1.1'
 
 }
-
-
-
