@@ -46,13 +46,3 @@
 
 </LinearLayout>
 
-<!--
-private int id;
-    private String debtName;
-    private String debtUser;
-    private String description;
-    private Date startDate;
-    private Date paidDate;
-    private int quantity;
-
--->
