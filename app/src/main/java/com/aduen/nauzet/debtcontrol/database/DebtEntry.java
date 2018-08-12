@@ -17,6 +17,7 @@ public class DebtEntry {
     private Date startDate;
     private Date paidDate;
     private int quantity;
+    private String state;
 
     @Ignore
     public DebtEntry(String debtName, String debtUser, String description, Date startDate, Date paidDate, int quantity) {
@@ -26,6 +27,7 @@ public class DebtEntry {
         this.startDate = startDate;
         this.paidDate = paidDate;
         this.quantity = quantity;
+        state = "not paid";
     }
 
     public DebtEntry(int id, String debtName, String debtUser, String description, Date startDate, Date paidDate, int quantity) {
@@ -36,6 +38,7 @@ public class DebtEntry {
         this.startDate = startDate;
         this.paidDate = paidDate;
         this.quantity = quantity;
+        state = "not paid";
     }
 
     public int getId() { return id; }
@@ -65,4 +68,8 @@ public class DebtEntry {
     public int getQuantity() { return quantity; }
 
     public void setQuantity(int quantity) { this.quantity = quantity; }
+
+    public String getState() { return state; }
+
+    public void pay() { state = "paid"; }
 }
