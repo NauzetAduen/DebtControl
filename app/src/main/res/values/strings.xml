@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DebtControl</string>
+    <string name="add_button_description">Add a debt to your list</string>
 </resources>
