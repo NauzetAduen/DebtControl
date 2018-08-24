@@ -91,7 +91,7 @@ public class AddDebtActivity extends AppCompatActivity {
         debtNameEditText.setText(debtEntry.getDebtName());
         debtUserEditText.setText(debtEntry.getDebtUser());
         debtDescriptionEditText.setText(debtEntry.getDescription());
-        //debtQuantityEditText.setText(debtEntry.getQuantity());
+        debtQuantityEditText.setText(String.valueOf(debtEntry.getQuantity()));
 
         //TODO ADD STATE AND DATE
     }

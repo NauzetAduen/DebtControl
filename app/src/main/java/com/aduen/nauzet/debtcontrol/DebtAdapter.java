@@ -56,7 +56,7 @@ public class DebtAdapter extends RecyclerView.Adapter<DebtAdapter.DebtViewHolder
         //Set values
         holder.debtUser.setText(user);
         holder.debtName.setText(name);
-        //holder.debtQuantity.setText(quantity);
+        holder.debtQuantity.setText(String.valueOf(quantity));
 
         //TODO CONTROL STATE
         // Programmatically set the text and color for the priority TextView

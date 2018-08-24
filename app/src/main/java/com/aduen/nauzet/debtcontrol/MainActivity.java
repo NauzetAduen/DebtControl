@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity implements DebtAdapter.ItemC
         mAdapter = new DebtAdapter(this, this);
         mRecyclerView.setAdapter(mAdapter);
 
-        //TODO WHAT IS THIS
         DividerItemDecoration decoration = new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL);
         mRecyclerView.addItemDecoration(decoration);
 
