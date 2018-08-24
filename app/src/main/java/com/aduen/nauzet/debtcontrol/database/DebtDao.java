@@ -1,5 +1,6 @@
 package com.aduen.nauzet.debtcontrol.database;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
@@ -13,7 +14,7 @@ import java.util.List;
 public interface DebtDao {
 
     @Query("SELECT * from debt")
-    List<DebtEntry> loadAllDebts();
+    LiveData<List<DebtEntry>> loadAllDebts();
 
     @Insert
     void insertDebt(DebtEntry debtEntry);
@@ -23,5 +24,8 @@ public interface DebtDao {
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     void updateDebt(DebtEntry debtEntry);
+
+    @Query("SELECT * FROM debt WHERE id = :id")
+    LiveData<DebtEntry> loadDebtById(int id);
 
 }

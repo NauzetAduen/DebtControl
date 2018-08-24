@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddDebtActivity" />
-        <activity android:name=".DebtActivity"></activity>
+        <activity android:name=".DebtActivity" />
     </application>
 
 </manifest>
