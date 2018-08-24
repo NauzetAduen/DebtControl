@@ -16,8 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddDebtActivity" />
-        <activity android:name=".DebtActivity" />
+        <activity android:name="com.aduen.nauzet.debtcontrol.AddDebtActivity" />
+        <activity android:name="com.aduen.nauzet.debtcontrol.DebtActivity" />
     </application>
 
 </manifest>

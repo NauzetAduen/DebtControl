@@ -19,9 +19,9 @@ public class AddDebtActivity extends AppCompatActivity {
 
 
     // Extra for the task ID to be received in the intent
-    public static final String EXTRA_DEBT_ID = "extraTaskId";
+    public static final String EXTRA_DEBT_ID = "extraDebtId";
     // Extra for the task ID to be received after rotation
-    public static final String INSTANCE_DEBT_ID = "instanceTaskId";
+    public static final String INSTANCE_DEBT_ID = "instanceDebtId";
     private static final int DEFAULT_DEBT_ID = -1;
     private int mDebtId = DEFAULT_DEBT_ID;
 
@@ -35,7 +35,8 @@ public class AddDebtActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_debt);
         mDb = AppDatabase.getsInstance(getApplicationContext());
-        initValues();
+
+        initViews();
 
         if (savedInstanceState != null && savedInstanceState.containsKey(INSTANCE_DEBT_ID)) {
             mDebtId = savedInstanceState.getInt(INSTANCE_DEBT_ID, DEFAULT_DEBT_ID);
@@ -45,16 +46,13 @@ public class AddDebtActivity extends AppCompatActivity {
         if (intent != null && intent.hasExtra(EXTRA_DEBT_ID)) {
             addDebtButton.setText(R.string.update_button);
             if (mDebtId == DEFAULT_DEBT_ID) {
-                // populate the UI
+
                 mDebtId = intent.getIntExtra(EXTRA_DEBT_ID, DEFAULT_DEBT_ID);
 
                 AddDebtViewModelFactory factory = new AddDebtViewModelFactory(mDb, mDebtId);
-                // COMPLETED (11) Declare a AddTaskViewModel variable and initialize it by calling ViewModelProviders.of
-                // for that use the factory created above AddTaskViewModel
                 final AddDebtViewModel viewModel
                         = ViewModelProviders.of(this, factory).get(AddDebtViewModel.class);
 
-                // COMPLETED (12) Observe the LiveData object in the ViewModel. Use it also when removing the observer
                 viewModel.getDebt().observe(this, new Observer<DebtEntry>() {
                     @Override
                     public void onChanged(@Nullable DebtEntry debtEntry) {
@@ -66,15 +64,13 @@ public class AddDebtActivity extends AppCompatActivity {
         }
 
     }
-    private void populateUI(DebtEntry debtEntry){
-        if (debtEntry == null) {
-            return;
-        }
-        //TODO ADD ALL ATRIBUTES
+    @Override
+    protected void onSaveInstanceState(Bundle outState){
+        outState.putInt(INSTANCE_DEBT_ID, mDebtId);
+        super.onSaveInstanceState(outState);
     }
 
-
-    private void initValues() {
+    private void initViews() {
         debtNameEditText = findViewById(R.id.et_debt_name);
         debtUserEditText = findViewById(R.id.et_debt_user);
         debtDescriptionEditText = findViewById(R.id.et_debt_description);
@@ -87,11 +83,22 @@ public class AddDebtActivity extends AppCompatActivity {
             }
         });
     }
-    @Override
-    protected void onSaveInstanceState(Bundle outState){
-        outState.putInt(INSTANCE_DEBT_ID, mDebtId);
-        super.onSaveInstanceState(outState);
+
+    private void populateUI(DebtEntry debtEntry){
+        if (debtEntry == null) return;
+
+        //to Update Debts
+        debtNameEditText.setText(debtEntry.getDebtName());
+        debtUserEditText.setText(debtEntry.getDebtUser());
+        debtDescriptionEditText.setText(debtEntry.getDescription());
+        //debtQuantityEditText.setText(debtEntry.getQuantity());
+
+        //TODO ADD STATE AND DATE
     }
+
+
+
+
 
     public void onSaveButtonClicked() {
         String name = debtNameEditText.getText().toString();
@@ -99,7 +106,6 @@ public class AddDebtActivity extends AppCompatActivity {
         String description = debtDescriptionEditText.getText().toString();
         int quantity = Integer.valueOf(debtQuantityEditText.getText().toString());
         final DebtEntry debtEntry = new DebtEntry(name, user, description, new Date(), quantity);
-
 
         AppExecutor.getsInstance().getDiskIO().execute(new Runnable() {
             @Override

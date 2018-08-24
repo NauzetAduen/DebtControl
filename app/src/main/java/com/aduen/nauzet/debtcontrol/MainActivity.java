@@ -21,7 +21,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements DebtAdapter.ItemClickListener{
 
-    private FloatingActionButton mFloatingActionButton;
     private RecyclerView mRecyclerView;
     private DebtAdapter mAdapter;
     private AppDatabase mDb;
@@ -31,13 +30,16 @@ public class MainActivity extends AppCompatActivity implements DebtAdapter.ItemC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mFloatingActionButton = findViewById(R.id.fab);
         mRecyclerView = findViewById(R.id.recyclerViewDebts);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new DebtAdapter(this, this);
         mRecyclerView.setAdapter(mAdapter);
+
+        //TODO WHAT IS THIS
         DividerItemDecoration decoration = new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL);
         mRecyclerView.addItemDecoration(decoration);
+
+
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
@@ -52,17 +54,19 @@ public class MainActivity extends AppCompatActivity implements DebtAdapter.ItemC
                     @Override
                     public void run() {
                         int position = viewHolder.getAdapterPosition();
-                        List<DebtEntry> debts = mAdapter.getmDebtEntries();
+                        List<DebtEntry> debts = mAdapter.getDebts();
                         mDb.debtDao().deleteDebt(debts.get(position));
                     }
                 });
             }
         }).attachToRecyclerView(mRecyclerView);
 
-        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fabButton = findViewById(R.id.fab);
+        fabButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, AddDebtActivity.class));
+                Intent addDebtIntent = new Intent(MainActivity.this, AddDebtActivity.class);
+                startActivity(addDebtIntent);
             }
         });
         mDb = AppDatabase.getsInstance(getApplicationContext());
@@ -74,8 +78,8 @@ public class MainActivity extends AppCompatActivity implements DebtAdapter.ItemC
 
         viewModel.getDebts().observe(this, new Observer<List<DebtEntry>>() {
             @Override
-            public void onChanged(@Nullable List<DebtEntry> taskEntries) {
-                mAdapter.setDebts(taskEntries);
+            public void onChanged(@Nullable List<DebtEntry> debtEntries) {
+                mAdapter.setDebts(debtEntries);
             }
         });
 
@@ -84,6 +88,8 @@ public class MainActivity extends AppCompatActivity implements DebtAdapter.ItemC
 
     @Override
     public void onItemClickListener(int itemId) {
-        Toast.makeText(this, "BORRADO", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(MainActivity.this, AddDebtActivity.class);
+        intent.putExtra(AddDebtActivity.EXTRA_DEBT_ID, itemId);
+        startActivity(intent);
     }
 }

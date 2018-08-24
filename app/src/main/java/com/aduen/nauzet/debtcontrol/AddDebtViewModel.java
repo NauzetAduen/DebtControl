@@ -14,7 +14,6 @@ public class AddDebtViewModel extends ViewModel {
         debt = database.debtDao().loadDebtById(debtId);
     }
 
-    // COMPLETED (7) Create a getter for the task variable
     public LiveData<DebtEntry> getDebt() {
         return debt;
     }

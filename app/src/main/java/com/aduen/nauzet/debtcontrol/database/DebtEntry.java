@@ -16,9 +16,6 @@ public class DebtEntry {
     private String description;
     private Date startDate;
     private int quantity;
-
-
-
     private String state;
 
     @Ignore

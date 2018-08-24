@@ -2,6 +2,7 @@ package com.aduen.nauzet.debtcontrol;
 
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,11 +28,7 @@ public class DebtAdapter extends RecyclerView.Adapter<DebtAdapter.DebtViewHolder
         mItemClickListener = listener;
     }
 
-    /**
-     * Called when ViewHolders are created to fill a RecyclerView.
-     *
-     * @return A new TaskViewHolder that holds the view for each task
-     */
+    @NonNull
     @Override
     public DebtViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // Inflate the task_layout to a view
@@ -59,8 +56,9 @@ public class DebtAdapter extends RecyclerView.Adapter<DebtAdapter.DebtViewHolder
         //Set values
         holder.debtUser.setText(user);
         holder.debtName.setText(name);
-        holder.debtQuantity.setText(quantity);
+        //holder.debtQuantity.setText(quantity);
 
+        //TODO CONTROL STATE
         // Programmatically set the text and color for the priority TextView
         /*String priorityString = "" + priority; // converts int to String
         holder.priorityView.setText(priorityString);
@@ -79,9 +77,10 @@ public class DebtAdapter extends RecyclerView.Adapter<DebtAdapter.DebtViewHolder
         return mDebtEntries.size();
     }
 
-    public List<DebtEntry> getmDebtEntries() {
+    public List<DebtEntry> getDebts() {
         return mDebtEntries;
     }
+
     public void setDebts(List<DebtEntry> debtEntries) {
         mDebtEntries = debtEntries;
         notifyDataSetChanged();
