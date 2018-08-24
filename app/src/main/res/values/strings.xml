@@ -6,4 +6,5 @@
     <string name="Quantity_label">Quantity</string>
     <string name="Button_label">Create</string>
     <string name="debt_user_label">Debitor</string>
+    <string name="pay_label_button">Pay!</string>
 </resources>
