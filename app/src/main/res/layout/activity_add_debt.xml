@@ -10,14 +10,16 @@
         android:layout_height="wrap_content"
         android:text="@string/debt_name_label"/>
     <EditText
+        android:id="@+id/et_debt_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Debt user"/>
+        android:text="@string/debt_user_label"/>
     <EditText
+        android:id="@+id/et_debt_user"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <TextView
@@ -25,6 +27,7 @@
         android:layout_height="wrap_content"
         android:text="@string/description_label"/>
     <EditText
+        android:id="@+id/et_debt_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <TextView
@@ -32,11 +35,13 @@
         android:layout_height="wrap_content"
         android:text="@string/Quantity_label"/>
     <EditText
+        android:id="@+id/et_debt_quantity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="number"/>
 
     <Button
+        android:id="@+id/b_add_debt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
