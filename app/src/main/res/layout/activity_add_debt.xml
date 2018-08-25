@@ -4,8 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddDebtActivity">
+    tools:context=".AddDebtActivity"
+   >
     <TextView
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/debt_name_label"/>
@@ -13,6 +15,7 @@
         android:id="@+id/et_debt_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/add_debt_style"
         />
     <TextView
         android:layout_width="match_parent"
@@ -21,7 +24,8 @@
     <EditText
         android:id="@+id/et_debt_user"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        style="@style/add_debt_style"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,7 +33,8 @@
     <EditText
         android:id="@+id/et_debt_description"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        style="@style/add_debt_style"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,14 +43,47 @@
         android:id="@+id/et_debt_quantity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="number"/>
+        android:inputType="number"
+        style="@style/add_debt_style"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/state_label" />
+
+    <RadioGroup
+        android:id="@+id/radioButton_group"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:theme="@style/radioButtons_style">
+        <RadioButton
+            android:id="@+id/radioButton_paid"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/paid_label"
+            android:background="@color/green"
+            android:layout_weight="1"/>
+        <RadioButton
+            android:id="@+id/radioButton_notpaid"
+            style="@style/radioButtons_style"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/unpaid_label"
+            android:background="@color/colorAccent"
+            android:layout_weight="1"/>
+    </RadioGroup>
 
     <Button
+        android:layout_marginTop="25dp"
         android:id="@+id/b_add_debt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/Button_label"/>
+        android:text="@string/Button_label"
+        />
 
 
 

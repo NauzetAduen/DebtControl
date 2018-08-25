@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 
 import com.aduen.nauzet.debtcontrol.database.AppDatabase;
 import com.aduen.nauzet.debtcontrol.database.DebtEntry;
@@ -28,6 +29,7 @@ public class AddDebtActivity extends AppCompatActivity {
     private EditText debtNameEditText, debtUserEditText, debtDescriptionEditText, debtQuantityEditText;
     private AppDatabase mDb;
     private Button addDebtButton;
+    private RadioGroup stateRadioGroup;
 
 
     @Override
@@ -75,6 +77,7 @@ public class AddDebtActivity extends AppCompatActivity {
         debtUserEditText = findViewById(R.id.et_debt_user);
         debtDescriptionEditText = findViewById(R.id.et_debt_description);
         debtQuantityEditText = findViewById(R.id.et_debt_quantity);
+        stateRadioGroup = findViewById(R.id.radioButton_group);
         addDebtButton = findViewById(R.id.b_add_debt);
         addDebtButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,7 +95,7 @@ public class AddDebtActivity extends AppCompatActivity {
         debtUserEditText.setText(debtEntry.getDebtUser());
         debtDescriptionEditText.setText(debtEntry.getDescription());
         debtQuantityEditText.setText(String.valueOf(debtEntry.getQuantity()));
-
+        boolean isPaid = getStatePaid();
         //TODO ADD STATE AND DATE
     }
 
@@ -119,6 +122,11 @@ public class AddDebtActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    public boolean getStatePaid(){
+        int checkId = ((RadioGroup) findViewById(R.id.radioButton_group)).getCheckedRadioButtonId();
+        return checkId == R.id.radioButton_paid;
     }
 
 
