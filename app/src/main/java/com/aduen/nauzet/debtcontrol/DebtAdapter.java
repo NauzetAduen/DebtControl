@@ -2,7 +2,9 @@ package com.aduen.nauzet.debtcontrol;
 
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,8 +58,13 @@ public class DebtAdapter extends RecyclerView.Adapter<DebtAdapter.DebtViewHolder
         //Set values
         holder.debtUser.setText(user);
         holder.debtName.setText(name);
-        holder.debtQuantity.setText(String.valueOf(quantity));
+        holder.debtQuantity.setText(String.valueOf(quantity) + "€");
+
         holder.debtState.setText(setStateToString(state));
+
+        if (state == 0) holder.debtState.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
+        else holder.debtState.setTextColor(ContextCompat.getColor(mContext, R.color.green));
+
 
         //TODO CONTROL STATE
         // Programmatically set the text and color for the priority TextView
@@ -73,6 +80,7 @@ public class DebtAdapter extends RecyclerView.Adapter<DebtAdapter.DebtViewHolder
         if (state == 1) return "Paid";
         return "Not paid";
     }
+
 
     @Override
     public int getItemCount() {

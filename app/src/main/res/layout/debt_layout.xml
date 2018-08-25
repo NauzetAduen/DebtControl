@@ -7,7 +7,7 @@
     android:weightSum="4">
 
     <TextView
-        android:layout_width="30dp"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:id="@+id/tv_debt_name_onList"
         style="@style/debt_name_style"
@@ -15,15 +15,16 @@
         android:text="NAME"/>
     <TextView
         android:text="USER"
-        android:layout_width="wrap_content"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:id="@+id/tv_debt_user_onList"
         style="@style/debt_style"
         android:layout_weight="1"/>
 
     <TextView
-        android:textAlignment="center"
-        android:layout_width="wrap_content"
+        android:textStyle="bold"
+        android:textAlignment="textStart"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:id="@+id/tv_state_debt_onList"
         style="@style/debt_style"
@@ -32,7 +33,7 @@
         />
     <TextView
         android:text="40€"
-        android:layout_width="wrap_content"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:id="@+id/tv_quantity_debt_onList"
         style="@style/debt_quantity_style"
