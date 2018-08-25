@@ -51,12 +51,13 @@ public class DebtAdapter extends RecyclerView.Adapter<DebtAdapter.DebtViewHolder
         String name = debtEntry.getDebtName();
         String user = debtEntry.getDebtUser();
         int quantity = debtEntry.getQuantity();
-        String state = debtEntry.getState();
+        int state = debtEntry.getState();
 
         //Set values
         holder.debtUser.setText(user);
         holder.debtName.setText(name);
         holder.debtQuantity.setText(String.valueOf(quantity));
+        holder.debtState.setText(setStateToString(state));
 
         //TODO CONTROL STATE
         // Programmatically set the text and color for the priority TextView
@@ -67,6 +68,10 @@ public class DebtAdapter extends RecyclerView.Adapter<DebtAdapter.DebtViewHolder
         // Get the appropriate background color based on the priority
         int priorityColor = getPriorityColor(priority);
         priorityCircle.setColor(priorityColor);*/
+    }
+    public String setStateToString(int state){
+        if (state == 1) return "Paid";
+        return "Not paid";
     }
 
     @Override
@@ -96,12 +101,14 @@ public class DebtAdapter extends RecyclerView.Adapter<DebtAdapter.DebtViewHolder
         TextView debtName;
         TextView debtUser;
         TextView debtQuantity;
+        TextView debtState;
 
         public DebtViewHolder(View itemView) {
             super(itemView);
             debtName = itemView.findViewById(R.id.tv_debt_name_onList);
             debtUser = itemView.findViewById(R.id.tv_debt_user_onList);
             debtQuantity = itemView.findViewById(R.id.tv_quantity_debt_onList);
+            debtState = itemView.findViewById(R.id.tv_state_debt_onList);
             itemView.setOnClickListener(this);
         }
 

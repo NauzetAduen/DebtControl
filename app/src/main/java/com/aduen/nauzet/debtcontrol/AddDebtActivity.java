@@ -95,8 +95,7 @@ public class AddDebtActivity extends AppCompatActivity {
         debtUserEditText.setText(debtEntry.getDebtUser());
         debtDescriptionEditText.setText(debtEntry.getDescription());
         debtQuantityEditText.setText(String.valueOf(debtEntry.getQuantity()));
-        boolean isPaid = getStatePaid();
-        //TODO ADD STATE AND DATE
+        setStateInRadio(debtEntry.getState());
     }
 
 
@@ -108,7 +107,7 @@ public class AddDebtActivity extends AppCompatActivity {
         String user = debtUserEditText.getText().toString();
         String description = debtDescriptionEditText.getText().toString();
         int quantity = Integer.valueOf(debtQuantityEditText.getText().toString());
-        final DebtEntry debtEntry = new DebtEntry(name, user, description, new Date(), quantity);
+        final DebtEntry debtEntry = new DebtEntry(name, user, description, new Date(), quantity, getStatePaid());
 
         AppExecutor.getsInstance().getDiskIO().execute(new Runnable() {
             @Override
@@ -124,9 +123,15 @@ public class AddDebtActivity extends AppCompatActivity {
         });
     }
 
-    public boolean getStatePaid(){
+    public int getStatePaid(){
         int checkId = ((RadioGroup) findViewById(R.id.radioButton_group)).getCheckedRadioButtonId();
-        return checkId == R.id.radioButton_paid;
+        if (checkId == R.id.radioButton_paid) return 1;
+        return 0;
+    }
+
+    public void setStateInRadio(int state){
+        if (state == 1) ((RadioGroup) findViewById(R.id.radioButton_group)).check(R.id.radioButton_paid);
+        if (state == 0) ((RadioGroup) findViewById(R.id.radioButton_group)).check(R.id.radioButton_notpaid);
     }
 
 
