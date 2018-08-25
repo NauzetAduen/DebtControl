@@ -13,7 +13,7 @@ import java.util.List;
 @Dao
 public interface DebtDao {
 
-    @Query("SELECT * from debt ORDER BY quantity DESC")
+    @Query("SELECT * from debt ORDER BY state ASC, quantity DESC")
     LiveData<List<DebtEntry>> loadAllDebts();
 
     @Insert
