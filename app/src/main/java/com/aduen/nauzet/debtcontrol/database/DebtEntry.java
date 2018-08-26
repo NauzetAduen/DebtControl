@@ -21,25 +21,30 @@ public class DebtEntry {
     private String description;
     private Date startDate;
     private int quantity;
+    private int quantityPaid;
     private int state;
 
     @Ignore
-    public DebtEntry(String debtName, String debtUser, String description, Date startDate, int quantity, int state) {
+    public DebtEntry(String debtName, String debtUser, String description, Date startDate, int quantity, int quantityPaid, int state) {
         this.debtName = debtName;
         this.debtUser = debtUser;
         this.description = description;
         this.startDate = startDate;
         this.quantity = quantity;
+        this.quantityPaid = this.quantityPaid;
         this.state = state;
     }
 
-    public DebtEntry(int id, String debtName, String debtUser, String description, Date startDate, int quantity, int state) {
+
+    public DebtEntry(int id, String debtName, String debtUser, String description, Date startDate, int quantity, int quantityPaid, int state) {
         this.id = id;
         this.debtName = debtName;
         this.debtUser = debtUser;
         this.description = description;
         this.startDate = startDate;
         this.quantity = quantity;
+        this.quantityPaid = quantityPaid;
+
         this.state = state;
     }
 
@@ -72,4 +77,8 @@ public class DebtEntry {
     public void setState(int state) {
         this.state = state;
     }
+
+    public int getQuantityPaid() { return quantityPaid; }
+
+    public void setQuantityPaid(int quantityPaid) { this.quantityPaid = quantityPaid; }
 }

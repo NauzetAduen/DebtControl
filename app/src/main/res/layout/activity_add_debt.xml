@@ -67,6 +67,13 @@
             android:background="@color/green"
             android:layout_weight="1"/>
         <RadioButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioButton_partial"
+            android:text="@string/partial_payment_label"
+            android:layout_weight="1"
+            android:background="@color/orange"/>
+        <RadioButton
             android:id="@+id/radioButton_notpaid"
             style="@style/radioButtons_style"
             android:layout_width="0dp"

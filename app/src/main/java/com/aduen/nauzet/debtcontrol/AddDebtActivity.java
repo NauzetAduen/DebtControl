@@ -6,6 +6,7 @@ package com.aduen.nauzet.debtcontrol;
 //   We try to recover data from SavedInstance in case of activity rotation
 //   We check in "onSaveButtonClicked" witch case we are in
 
+import android.app.Dialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -15,7 +16,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.aduen.nauzet.debtcontrol.database.AppDatabase;
 import com.aduen.nauzet.debtcontrol.database.DebtEntry;
@@ -34,6 +37,8 @@ public class AddDebtActivity extends AppCompatActivity {
     private AppDatabase mDb;
     private Button addDebtButton;
     private RadioGroup stateRadioGroup;
+    private RadioButton mRadioButton;
+    private Dialog mDialog;
 
 
     @Override
@@ -89,6 +94,21 @@ public class AddDebtActivity extends AppCompatActivity {
                 onSaveButtonClicked();
             }
         });
+        mRadioButton = findViewById(R.id.radioButton_partial);
+        mRadioButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onPartialButtonClicked();
+            }
+        });
+        mDialog = new Dialog(this);
+    }
+
+    public void onPartialButtonClicked() {
+        Toast.makeText(this,"H",Toast.LENGTH_SHORT).show();
+        mDialog.setContentView(R.layout.partial_payment);
+        mDialog.setTitle("Pick");
+        mDialog.show();
     }
 
     private void populateUI(DebtEntry debtEntry){
@@ -107,7 +127,8 @@ public class AddDebtActivity extends AppCompatActivity {
         String user = debtUserEditText.getText().toString();
         String description = debtDescriptionEditText.getText().toString();
         int quantity = Integer.valueOf(debtQuantityEditText.getText().toString());
-        final DebtEntry debtEntry = new DebtEntry(name, user, description, new Date(), quantity, getStatePaid());
+        int qPaid = 0;
+        final DebtEntry debtEntry = new DebtEntry(name, user, description, new Date(), quantity, qPaid, getStatePaid());
 
         AppExecutor.getsInstance().getDiskIO().execute(new Runnable() {
             @Override
@@ -125,12 +146,14 @@ public class AddDebtActivity extends AppCompatActivity {
 
     public int getStatePaid(){
         int checkId = ((RadioGroup) findViewById(R.id.radioButton_group)).getCheckedRadioButtonId();
-        if (checkId == R.id.radioButton_paid) return 1;
+        if (checkId == R.id.radioButton_paid) return 2;
+        if (checkId == R.id.radioButton_partial) return 1;
         return 0;
     }
 
     public void setStateInRadio(int state){
-        if (state == 1) ((RadioGroup) findViewById(R.id.radioButton_group)).check(R.id.radioButton_paid);
+        if (state == 2) ((RadioGroup) findViewById(R.id.radioButton_group)).check(R.id.radioButton_paid);
+        if (state == 1) ((RadioGroup) findViewById(R.id.radioButton_group)).check(R.id.radioButton_partial);
         if (state == 0) ((RadioGroup) findViewById(R.id.radioButton_group)).check(R.id.radioButton_notpaid);
     }
 

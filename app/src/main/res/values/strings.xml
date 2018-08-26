@@ -10,4 +10,6 @@
     <string name="state_label">State</string>
     <string name="paid_label">Paid</string>
     <string name="unpaid_label">Not paid</string>
+    <string name="partial_payment_label">Partial</string>
+    <string name="seekbar_value_label">Value:</string>
 </resources>
