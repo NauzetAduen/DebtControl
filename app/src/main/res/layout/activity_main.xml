@@ -1,31 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:orientation="vertical"
+    android:layout_margin="2dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="6"
+        >
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_debt_name_onList"
+            style="@style/debt_name_style"
+            android:layout_weight="2"
+            android:text="@string/debt_name_label"
+            android:maxWidth="40dp"/>
+        <TextView
+            android:text="@string/debt_user_label"
+            android:maxWidth="40dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_debt_user_onList"
+            style="@style/debt_name_style"
+            android:layout_weight="2"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerViewDebts"
+        <TextView
+            android:layout_width="0dp"
+            android:textStyle="bold"
+            android:textAlignment="textStart"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_state_debt_onList"
+            style="@style/debt_style"
+            android:layout_weight="1"
+            android:text="@string/paid_label"
+            />
+        <TextView
+            android:maxWidth="40dp"
+            android:text="@string/Quantity_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_quantity_debt_onList"
+            style="@style/debt_quantity_style"
+            android:textStyle="bold"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:paddingBottom="80dp"/>
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerViewDebts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingBottom="80dp"/>
 
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:tint="@android:color/white"
-        android:layout_margin="15dp"
-        app:srcCompat="@android:drawable/ic_input_add" />
-</FrameLayout>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:tint="@android:color/white"
+            android:layout_margin="15dp"
+            app:srcCompat="@android:drawable/ic_input_add" />
+    </FrameLayout>
+</LinearLayout>
 
-<!--
 
-
--->
 
