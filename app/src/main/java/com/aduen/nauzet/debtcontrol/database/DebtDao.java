@@ -1,5 +1,8 @@
 package com.aduen.nauzet.debtcontrol.database;
 
+// Interface used by SQLite to access our Database
+// DAO -> Database Access Object
+
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;

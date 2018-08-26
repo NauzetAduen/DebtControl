@@ -1,5 +1,10 @@
 package com.aduen.nauzet.debtcontrol.database;
 
+// Class used to map object from our database
+// We use annotations
+//    @Entity determines its an mapped object
+//    @Ignore (without id) so SQLite don't use it
+
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;

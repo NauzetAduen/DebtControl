@@ -1,5 +1,9 @@
 package com.aduen.nauzet.debtcontrol.database;
 
+// SQLite don't allow Date objects
+// We use long type to store dates
+// We use this annotation to let SQLite know
+
 import android.arch.persistence.room.TypeConverter;
 
 import java.util.Date;

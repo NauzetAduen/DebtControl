@@ -1,5 +1,8 @@
 package com.aduen.nauzet.debtcontrol.database;
 
+// This class extends RoomDatabase using the singleton pattern
+// We use an object LOCK to synchronization
+
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
