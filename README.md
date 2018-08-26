@@ -2,10 +2,24 @@
 Small App to Control your Debt
 
 ## Idea
-Small app with a list of debts (person, quantity, date).
+Small app with a list of debts (Name, person, description, quantity, date, state).
 
-## Functionality
-You will be able to remove, update, add.. debts
+It has two possibles states, paid and not paid.
 
-## Extra
-List of users, partial payment of debt
+
+##Functionality
+To delete any debt, swept it.
+
+Use the floating button to add a new debt.
+
+You can update every attribute.
+
+
+##On Progress
+Partial payment.
+
+Full project comments.
+
+
+
+
