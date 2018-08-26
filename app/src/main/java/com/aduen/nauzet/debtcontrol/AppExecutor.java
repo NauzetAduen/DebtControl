@@ -1,5 +1,8 @@
 package com.aduen.nauzet.debtcontrol;
 
+// AppExecutors are for async work
+// In this case, managing our database
+
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 

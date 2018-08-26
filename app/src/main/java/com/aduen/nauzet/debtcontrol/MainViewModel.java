@@ -1,5 +1,7 @@
 package com.aduen.nauzet.debtcontrol;
 
+// This class use the architectural component viewModel
+// Just hold our list of debts
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;

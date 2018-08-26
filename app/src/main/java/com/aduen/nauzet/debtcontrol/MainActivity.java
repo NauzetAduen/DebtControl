@@ -1,5 +1,10 @@
 package com.aduen.nauzet.debtcontrol;
 
+// Our main activity, show a list of debts and a floating button.
+// We can delete our debts with our ItemTouchHelper object
+//    witch is attached to our view
+// We use the observer design pattern so our recyclerview is lifecycle aware
+
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;

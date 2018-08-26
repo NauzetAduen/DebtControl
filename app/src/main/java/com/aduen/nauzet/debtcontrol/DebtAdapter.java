@@ -1,5 +1,9 @@
 package com.aduen.nauzet.debtcontrol;
 
+// Class used with the adapter design pattern
+// Its necessary for our recyclerview
+// We use an inner class to "hold" each element of our list
+// We use that class to inflate our list
 
 import android.content.Context;
 import android.graphics.Color;
@@ -19,11 +23,11 @@ import java.util.Locale;
 
 public class DebtAdapter extends RecyclerView.Adapter<DebtAdapter.DebtViewHolder> {
 
-    private static final String DATE_FORMAT = "dd/MM/yyy";
+    //private static final String DATE_FORMAT = "dd/MM/yyy";
     final private ItemClickListener mItemClickListener;
     private List<DebtEntry> mDebtEntries;
     private Context mContext;
-    private SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
+    //private SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
 
     public DebtAdapter(Context context, ItemClickListener listener) {
         mContext = context;
@@ -40,12 +44,6 @@ public class DebtAdapter extends RecyclerView.Adapter<DebtAdapter.DebtViewHolder
         return new DebtViewHolder(view);
     }
 
-    /**
-     * Called by the RecyclerView to display data at a specified position in the Cursor.
-     *
-     * @param holder   The ViewHolder to bind Cursor data to
-     * @param position The position of the data in the Cursor
-     */
     @Override
     public void onBindViewHolder(DebtViewHolder holder, int position) {
         // Determine the values of the wanted data
@@ -64,18 +62,8 @@ public class DebtAdapter extends RecyclerView.Adapter<DebtAdapter.DebtViewHolder
 
         if (state == 0) holder.debtState.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
         else holder.debtState.setTextColor(ContextCompat.getColor(mContext, R.color.green));
-
-
-        //TODO CONTROL STATE
-        // Programmatically set the text and color for the priority TextView
-        /*String priorityString = "" + priority; // converts int to String
-        holder.priorityView.setText(priorityString);
-
-        GradientDrawable priorityCircle = (GradientDrawable) holder.priorityView.getBackground();
-        // Get the appropriate background color based on the priority
-        int priorityColor = getPriorityColor(priority);
-        priorityCircle.setColor(priorityColor);*/
     }
+
     public String setStateToString(int state){
         if (state == 1) return "Paid";
         return "Not paid";

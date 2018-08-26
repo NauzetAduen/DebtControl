@@ -1,5 +1,11 @@
 package com.aduen.nauzet.debtcontrol;
 
+//Class with two purposes
+//   Create new debts and update existing debts
+//   We check in "onCreate" if the intent has an extraID
+//   We try to recover data from SavedInstance in case of activity rotation
+//   We check in "onSaveButtonClicked" witch case we are in
+
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -19,9 +25,7 @@ import java.util.Date;
 public class AddDebtActivity extends AppCompatActivity {
 
 
-    // Extra for the task ID to be received in the intent
     public static final String EXTRA_DEBT_ID = "extraDebtId";
-    // Extra for the task ID to be received after rotation
     public static final String INSTANCE_DEBT_ID = "instanceDebtId";
     private static final int DEFAULT_DEBT_ID = -1;
     private int mDebtId = DEFAULT_DEBT_ID;
@@ -97,10 +101,6 @@ public class AddDebtActivity extends AppCompatActivity {
         debtQuantityEditText.setText(String.valueOf(debtEntry.getQuantity()));
         setStateInRadio(debtEntry.getState());
     }
-
-
-
-
 
     public void onSaveButtonClicked() {
         String name = debtNameEditText.getText().toString();

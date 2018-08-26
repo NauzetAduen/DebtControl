@@ -1,5 +1,7 @@
 package com.aduen.nauzet.debtcontrol;
 
+//
+
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 
