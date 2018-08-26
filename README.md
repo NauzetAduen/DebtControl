@@ -18,8 +18,6 @@ You can update every attribute.
 ## On Progress
 Partial payment.
 
-Full project comments.
-
 
 
 
