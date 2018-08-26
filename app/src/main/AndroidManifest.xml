@@ -17,7 +17,6 @@
             </intent-filter>
         </activity>
         <activity android:name="com.aduen.nauzet.debtcontrol.AddDebtActivity" />
-        <activity android:name="com.aduen.nauzet.debtcontrol.DebtActivity" />
     </application>
 
 </manifest>
