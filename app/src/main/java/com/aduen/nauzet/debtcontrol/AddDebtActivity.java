@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aduen.nauzet.debtcontrol.database.AppDatabase;
 import com.aduen.nauzet.debtcontrol.database.DebtEntry;
@@ -162,11 +163,16 @@ public class AddDebtActivity extends AppCompatActivity {
     }
 
     public void onSaveButtonClicked() {
+        //TODO FIX EMPTY
         String name = debtNameEditText.getText().toString();
         String user = debtUserEditText.getText().toString();
         String description = debtDescriptionEditText.getText().toString();
         int quantity = Integer.valueOf(debtQuantityEditText.getText().toString());
         int qPaid = mSeekBar.getProgress();
+        if (!areIntCorrect(quantity, qPaid) || !areStringCorrect(name,user,description)){
+            Toast.makeText(this,"Empty Fields!", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         final DebtEntry debtEntry = new DebtEntry(name, user, description, quantity, qPaid, calculateState(quantity, qPaid));
 
@@ -184,6 +190,12 @@ public class AddDebtActivity extends AppCompatActivity {
         });
     }
 
+    private boolean areStringCorrect(String name, String user, String description){
+        return !name.isEmpty() && !user.isEmpty() && !description.isEmpty();
+    }
+    private boolean areIntCorrect( int quantity, int qPaid){
+        return  quantity != 0 && qPaid <= quantity;
+    }
     private int calculateState(int quantity, int quantityPaid) {
         if (quantity == quantityPaid) return 2;
         if (quantityPaid > 0) return 1;
