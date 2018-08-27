@@ -95,7 +95,11 @@ public class AddDebtActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mSeekBar.setMax(Integer.parseInt(s.toString()));
+                //TODO FIX THIS SHIT
+                if (s.toString().equals("")) {
+                    mSeekBar.setMax(100);
+                    return;
+                }else mSeekBar.setMax(Integer.parseInt(s.toString()));
             }
 
             @Override

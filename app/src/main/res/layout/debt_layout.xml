@@ -12,16 +12,14 @@
         android:id="@+id/tv_debt_name_onList"
         style="@style/debt_name_style"
         android:layout_weight="2"
-        android:text="NAaaaaaaaaaaaaME"
         android:maxWidth="40dp"/>
     <TextView
-        android:text="el jaco de la esquina"
         android:maxWidth="40dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/tv_debt_user_onList"
         style="@style/debt_style"
-        android:layout_weight="2"/>
+        android:layout_weight="1"/>
 
     <TextView
         android:layout_width="0dp"
@@ -31,14 +29,20 @@
         android:id="@+id/tv_state_debt_onList"
         style="@style/debt_style"
         android:layout_weight="1"
-        android:text="PAID"
         />
+    <TextView
+        android:maxWidth="40dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_quantity_debt_onList"
+        style="@style/debt_quantity_style"
+        android:layout_weight="1"/>
     <TextView
         android:maxWidth="40dp"
         android:text="40€"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_quantity_debt_onList"
+        android:id="@+id/tv_quantityLeft_debt_onList"
         style="@style/debt_quantity_style"
         android:layout_weight="1"/>
     <!--<Button

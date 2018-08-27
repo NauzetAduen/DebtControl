@@ -57,7 +57,8 @@ public class DebtAdapter extends RecyclerView.Adapter<DebtAdapter.DebtViewHolder
         //Set values
         holder.debtUser.setText(user);
         holder.debtName.setText(name);
-        holder.debtQuantity.setText(String.valueOf(quantityLeft) + "€");
+        holder.debtQuantity.setText(quantity + "€");
+        holder.debQuantityLeft.setText(String.valueOf(quantityLeft) + "€");
 
         holder.debtState.setText(setStateToString(state));
 
@@ -100,6 +101,7 @@ public class DebtAdapter extends RecyclerView.Adapter<DebtAdapter.DebtViewHolder
         TextView debtName;
         TextView debtUser;
         TextView debtQuantity;
+        TextView debQuantityLeft;
         TextView debtState;
 
         public DebtViewHolder(View itemView) {
@@ -108,6 +110,7 @@ public class DebtAdapter extends RecyclerView.Adapter<DebtAdapter.DebtViewHolder
             debtUser = itemView.findViewById(R.id.tv_debt_user_onList);
             debtQuantity = itemView.findViewById(R.id.tv_quantity_debt_onList);
             debtState = itemView.findViewById(R.id.tv_state_debt_onList);
+            debQuantityLeft = itemView.findViewById(R.id.tv_quantityLeft_debt_onList);
             itemView.setOnClickListener(this);
         }
 
