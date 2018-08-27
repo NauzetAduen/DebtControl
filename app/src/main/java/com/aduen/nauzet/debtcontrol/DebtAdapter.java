@@ -51,12 +51,13 @@ public class DebtAdapter extends RecyclerView.Adapter<DebtAdapter.DebtViewHolder
         String name = debtEntry.getDebtName();
         String user = debtEntry.getDebtUser();
         int quantity = debtEntry.getQuantity();
+        int qPaid = debtEntry.getQuantityPaid();
         int state = debtEntry.getState();
-
+        int quantityLeft = quantity - qPaid;
         //Set values
         holder.debtUser.setText(user);
         holder.debtName.setText(name);
-        holder.debtQuantity.setText(String.valueOf(quantity) + "€");
+        holder.debtQuantity.setText(String.valueOf(quantityLeft) + "€");
 
         holder.debtState.setText(setStateToString(state));
 
