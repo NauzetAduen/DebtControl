@@ -73,6 +73,8 @@
                 android:layout_height="wrap_content"
                 android:text="0€"/>
             <Button
+                android:background="@color/green"
+                android:textColor="@color/white"
                 android:id="@+id/fullPayment_button"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
