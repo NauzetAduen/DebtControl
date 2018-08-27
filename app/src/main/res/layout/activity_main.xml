@@ -36,7 +36,7 @@
             android:id="@+id/tv_state_debt_onList"
             style="@style/debt_style"
             android:layout_weight="1"
-            android:text="@string/paid_label"
+            android:text="@string/state_label"
             />
         <TextView
             android:maxWidth="40dp"

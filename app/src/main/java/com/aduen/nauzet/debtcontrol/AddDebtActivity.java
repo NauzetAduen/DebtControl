@@ -6,25 +6,24 @@ package com.aduen.nauzet.debtcontrol;
 //   We try to recover data from SavedInstance in case of activity rotation
 //   We check in "onSaveButtonClicked" witch case we are in
 
-import android.app.Dialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.aduen.nauzet.debtcontrol.database.AppDatabase;
 import com.aduen.nauzet.debtcontrol.database.DebtEntry;
 
-import java.util.Date;
 
 public class AddDebtActivity extends AppCompatActivity {
 
@@ -35,9 +34,10 @@ public class AddDebtActivity extends AppCompatActivity {
     private int mDebtId = DEFAULT_DEBT_ID;
 
     private EditText debtNameEditText, debtUserEditText, debtDescriptionEditText, debtQuantityEditText;
+    private TextView alreadyPaidEditText;
+    private int qunantityPaid;
     private AppDatabase mDb;
-    private Button addDebtButton;
-    private RadioGroup stateRadioGroup;
+    private Button addDebtButton, payButton;
     private SeekBar mSeekBar;
 
 
@@ -47,7 +47,7 @@ public class AddDebtActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_debt);
         mDb = AppDatabase.getsInstance(getApplicationContext());
 
-        initViews();
+        initViewsAndListeners();
 
         if (savedInstanceState != null && savedInstanceState.containsKey(INSTANCE_DEBT_ID)) {
             mDebtId = savedInstanceState.getInt(INSTANCE_DEBT_ID, DEFAULT_DEBT_ID);
@@ -81,12 +81,29 @@ public class AddDebtActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
     }
 
-    private void initViews() {
+    private void initViewsAndListeners() {
+        payButton = findViewById(R.id.fullPayment_button);
+        alreadyPaidEditText = findViewById(R.id.already_paid_tv);
         debtNameEditText = findViewById(R.id.et_debt_name);
         debtUserEditText = findViewById(R.id.et_debt_user);
         debtDescriptionEditText = findViewById(R.id.et_debt_description);
         debtQuantityEditText = findViewById(R.id.et_debt_quantity);
-        stateRadioGroup = findViewById(R.id.radioButton_group);
+        debtQuantityEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mSeekBar.setMax(Integer.parseInt(s.toString()));
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                mSeekBar.setMax(Integer.parseInt(s.toString()));
+
+            }
+        });
         addDebtButton = findViewById(R.id.b_add_debt);
         addDebtButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,27 +111,33 @@ public class AddDebtActivity extends AppCompatActivity {
                 onSaveButtonClicked();
             }
         });
-        stateRadioGroup = findViewById(R.id.radioButton_group);
-        stateRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        mSeekBar = findViewById(R.id.SB_add_debt);
+        mSeekBar.setEnabled(true);
+        mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.radioButton_partial){
-                    //TODO AND QUANTITY IS NOT NULL
-                    mSeekBar.setEnabled(true);
-                }
-                else if (checkedId == R.id.radioButton_notpaid) {
-                    mSeekBar.setProgress(0);
-                    mSeekBar.setEnabled(false);
-                }else if (checkedId == R.id.radioButton_paid){
-                    mSeekBar.setProgress(mSeekBar.getMax());
-                    mSeekBar.setEnabled(false);
-                }
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (debtQuantityEditText.getText().equals("")) return;
+                alreadyPaidEditText.setText(String.valueOf(mSeekBar.getProgress()));
+                if (progress == seekBar.getMax()) payButton.setEnabled(false);
+                else payButton.setEnabled(true);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
 
             }
         });
-
-        mSeekBar = findViewById(R.id.SB_add_debt);
-        mSeekBar.setEnabled(false);
+        payButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSeekBar.setProgress(mSeekBar.getMax());
+            }
+        });
     }
 
 
@@ -126,7 +149,12 @@ public class AddDebtActivity extends AppCompatActivity {
         debtUserEditText.setText(debtEntry.getDebtUser());
         debtDescriptionEditText.setText(debtEntry.getDescription());
         debtQuantityEditText.setText(String.valueOf(debtEntry.getQuantity()));
-        setStateInRadio(debtEntry.getState());
+        populateSeekBar(debtEntry.getQuantityPaid());
+    }
+
+    private void populateSeekBar(int quantityPaid) {
+        mSeekBar.setMax(Integer.valueOf(debtQuantityEditText.getText().toString()));
+        mSeekBar.setProgress(quantityPaid);
     }
 
     public void onSaveButtonClicked() {
@@ -134,8 +162,9 @@ public class AddDebtActivity extends AppCompatActivity {
         String user = debtUserEditText.getText().toString();
         String description = debtDescriptionEditText.getText().toString();
         int quantity = Integer.valueOf(debtQuantityEditText.getText().toString());
-        int qPaid = 0;
-        final DebtEntry debtEntry = new DebtEntry(name, user, description, new Date(), quantity, qPaid, getStatePaid());
+        int qPaid = mSeekBar.getProgress();
+
+        final DebtEntry debtEntry = new DebtEntry(name, user, description, quantity, qPaid, calculateState(quantity, qPaid));
 
         AppExecutor.getsInstance().getDiskIO().execute(new Runnable() {
             @Override
@@ -151,18 +180,10 @@ public class AddDebtActivity extends AppCompatActivity {
         });
     }
 
-    public int getStatePaid(){
-        int checkId = ((RadioGroup) findViewById(R.id.radioButton_group)).getCheckedRadioButtonId();
-        if (checkId == R.id.radioButton_paid) return 2;
-        if (checkId == R.id.radioButton_partial) return 1;
+    private int calculateState(int quantity, int quantityPaid) {
+        if (quantity == quantityPaid) return 2;
+        if (quantityPaid > 0) return 1;
         return 0;
     }
-
-    public void setStateInRadio(int state){
-        if (state == 2) ((RadioGroup) findViewById(R.id.radioButton_group)).check(R.id.radioButton_paid);
-        if (state == 1) ((RadioGroup) findViewById(R.id.radioButton_group)).check(R.id.radioButton_partial);
-        if (state == 0) ((RadioGroup) findViewById(R.id.radioButton_group)).check(R.id.radioButton_notpaid);
-    }
-
 
 }

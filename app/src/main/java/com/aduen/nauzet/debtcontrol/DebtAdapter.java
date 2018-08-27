@@ -61,11 +61,13 @@ public class DebtAdapter extends RecyclerView.Adapter<DebtAdapter.DebtViewHolder
         holder.debtState.setText(setStateToString(state));
 
         if (state == 0) holder.debtState.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
+        else if (state == 1) holder.debtState.setTextColor(ContextCompat.getColor(mContext, R.color.orange));
         else holder.debtState.setTextColor(ContextCompat.getColor(mContext, R.color.green));
     }
 
     public String setStateToString(int state){
-        if (state == 1) return "Paid";
+        if (state == 2) return "Paid";
+        if (state == 1) return "Partial";
         return "Not paid";
     }
 

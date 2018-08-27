@@ -19,33 +19,30 @@ public class DebtEntry {
     private String debtName;
     private String debtUser;
     private String description;
-    private Date startDate;
     private int quantity;
     private int quantityPaid;
     private int state;
 
     @Ignore
-    public DebtEntry(String debtName, String debtUser, String description, Date startDate, int quantity, int quantityPaid, int state) {
+    public DebtEntry(String debtName, String debtUser, String description, int quantity, int quantityPaid, int state) {
         this.debtName = debtName;
         this.debtUser = debtUser;
         this.description = description;
-        this.startDate = startDate;
         this.quantity = quantity;
-        this.quantityPaid = this.quantityPaid;
+        this.quantityPaid = quantityPaid;
         this.state = state;
     }
 
-
-    public DebtEntry(int id, String debtName, String debtUser, String description, Date startDate, int quantity, int quantityPaid, int state) {
+    public DebtEntry(int id, String debtName, String debtUser, String description, int quantity, int quantityPaid, int state) {
         this.id = id;
         this.debtName = debtName;
         this.debtUser = debtUser;
         this.description = description;
-        this.startDate = startDate;
         this.quantity = quantity;
         this.quantityPaid = quantityPaid;
-
         this.state = state;
+
+
     }
 
     public int getId() { return id; }
@@ -64,21 +61,20 @@ public class DebtEntry {
 
     public void setDescription(String description) { this.description = description; }
 
-    public Date getStartDate() { return startDate; }
-
-    public void setStartDate(Date startDate) { this.startDate = startDate; }
-
     public int getQuantity() { return quantity; }
 
     public void setQuantity(int quantity) { this.quantity = quantity; }
 
-    public int getState() { return state; }
+    public int getQuantityPaid() { return quantityPaid; }
+
+    public void setQuantityPaid(int quantityPaid) { this.quantityPaid = quantityPaid; }
+
+
+    public int getState() {
+        return state;
+    }
 
     public void setState(int state) {
         this.state = state;
     }
-
-    public int getQuantityPaid() { return quantityPaid; }
-
-    public void setQuantityPaid(int quantityPaid) { this.quantityPaid = quantityPaid; }
 }
