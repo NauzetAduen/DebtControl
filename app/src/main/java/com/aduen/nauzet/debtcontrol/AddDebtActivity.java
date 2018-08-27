@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.aduen.nauzet.debtcontrol.database.AppDatabase;
@@ -37,8 +38,7 @@ public class AddDebtActivity extends AppCompatActivity {
     private AppDatabase mDb;
     private Button addDebtButton;
     private RadioGroup stateRadioGroup;
-    private RadioButton mRadioButton;
-    private Dialog mDialog;
+    private SeekBar mSeekBar;
 
 
     @Override
@@ -94,22 +94,29 @@ public class AddDebtActivity extends AppCompatActivity {
                 onSaveButtonClicked();
             }
         });
-        mRadioButton = findViewById(R.id.radioButton_partial);
-        mRadioButton.setOnClickListener(new View.OnClickListener() {
+        stateRadioGroup = findViewById(R.id.radioButton_group);
+        stateRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                onPartialButtonClicked();
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.radioButton_partial){
+                    //TODO AND QUANTITY IS NOT NULL
+                    mSeekBar.setEnabled(true);
+                }
+                else if (checkedId == R.id.radioButton_notpaid) {
+                    mSeekBar.setProgress(0);
+                    mSeekBar.setEnabled(false);
+                }else if (checkedId == R.id.radioButton_paid){
+                    mSeekBar.setProgress(mSeekBar.getMax());
+                    mSeekBar.setEnabled(false);
+                }
+
             }
         });
-        mDialog = new Dialog(this);
+
+        mSeekBar = findViewById(R.id.SB_add_debt);
+        mSeekBar.setEnabled(false);
     }
 
-    public void onPartialButtonClicked() {
-        Toast.makeText(this,"H",Toast.LENGTH_SHORT).show();
-        mDialog.setContentView(R.layout.partial_payment);
-        mDialog.setTitle("Pick");
-        mDialog.show();
-    }
 
     private void populateUI(DebtEntry debtEntry){
         if (debtEntry == null) return;
