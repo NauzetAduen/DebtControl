@@ -17,7 +17,6 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,8 +34,7 @@ public class AddDebtActivity extends AppCompatActivity {
     private int mDebtId = DEFAULT_DEBT_ID;
 
     private EditText debtNameEditText, debtUserEditText, debtDescriptionEditText, debtQuantityEditText;
-    private EditText alreadyPaidEditText;
-    private int qunantityPaid;
+    private TextView alreadyPaidTextView;
     private AppDatabase mDb;
     private Button addDebtButton, payButton;
     private SeekBar mSeekBar;
@@ -83,28 +81,9 @@ public class AddDebtActivity extends AppCompatActivity {
     }
 
     private void initViewsAndListeners() {
+        debtQuantityEditText = findViewById(R.id.et_debt_quantity);
         payButton = findViewById(R.id.fullPayment_button);
-        alreadyPaidEditText = findViewById(R.id.already_paid_tv);
-        alreadyPaidEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.equals("")) return;
-                int value = Integer.parseInt(s.toString());
-                mSeekBar.setProgress(value);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s.equals("")) return;
-                int value = Integer.parseInt(s.toString());
-                mSeekBar.setProgress(value);
-            }
-        });
+        alreadyPaidTextView = findViewById(R.id.already_paid_tv);
         debtNameEditText = findViewById(R.id.et_debt_name);
         debtUserEditText = findViewById(R.id.et_debt_user);
         debtDescriptionEditText = findViewById(R.id.et_debt_description);
@@ -116,17 +95,12 @@ public class AddDebtActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //TODO FIX THIS SHIT
-                if (s.toString().equals("")) return;
-                else mSeekBar.setMax(Integer.parseInt(s.toString()));
+                if (!s.toString().equals("")) mSeekBar.setMax(Integer.parseInt(s.toString()));
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.toString().equals("")) return;
-                else mSeekBar.setMax(Integer.parseInt(s.toString()));
-                ;
-
+                if (!s.toString().equals("")) mSeekBar.setMax(Integer.parseInt(s.toString()));
             }
         });
         addDebtButton = findViewById(R.id.b_add_debt);
@@ -142,7 +116,7 @@ public class AddDebtActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (debtQuantityEditText.getText().equals("")) return;
-                alreadyPaidEditText.setText(String.valueOf(mSeekBar.getProgress()));
+                alreadyPaidTextView.setText(String.valueOf(mSeekBar.getProgress()));
                 if (progress == seekBar.getMax()) payButton.setEnabled(false);
                 else payButton.setEnabled(true);
             }
@@ -193,7 +167,7 @@ public class AddDebtActivity extends AppCompatActivity {
         }
         int quantity = Integer.valueOf(debtQuantityEditText.getText().toString());
 //        int qPaid = mSeekBar.getProgress();
-        int qPaid = Integer.parseInt(alreadyPaidEditText.getText().toString());
+        int qPaid = Integer.parseInt(alreadyPaidTextView.getText().toString());
         if (!areIntCorrect(quantity, qPaid) || !areStringCorrect(name,user,description)){
             Toast.makeText(this,"Empty Fields!", Toast.LENGTH_SHORT).show();
             return;
