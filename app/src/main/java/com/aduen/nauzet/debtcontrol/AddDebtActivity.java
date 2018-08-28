@@ -167,6 +167,8 @@ public class AddDebtActivity extends AppCompatActivity {
         String name = debtNameEditText.getText().toString();
         String user = debtUserEditText.getText().toString();
         String description = debtDescriptionEditText.getText().toString();
+        String quantityString = debtQuantityEditText.getText().toString();
+        if(isQuantityStringEmpty(quantityString)) return;
         int quantity = Integer.valueOf(debtQuantityEditText.getText().toString());
         int qPaid = mSeekBar.getProgress();
         if (!areIntCorrect(quantity, qPaid) || !areStringCorrect(name,user,description)){
@@ -188,6 +190,10 @@ public class AddDebtActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private boolean isQuantityStringEmpty(String quantityString) {
+        return quantityString.isEmpty();
     }
 
     private boolean areStringCorrect(String name, String user, String description){
