@@ -35,7 +35,7 @@ public class AddDebtActivity extends AppCompatActivity {
     private int mDebtId = DEFAULT_DEBT_ID;
 
     private EditText debtNameEditText, debtUserEditText, debtDescriptionEditText, debtQuantityEditText;
-    private TextView alreadyPaidEditText;
+    private EditText alreadyPaidEditText;
     private int qunantityPaid;
     private AppDatabase mDb;
     private Button addDebtButton, payButton;
@@ -85,6 +85,26 @@ public class AddDebtActivity extends AppCompatActivity {
     private void initViewsAndListeners() {
         payButton = findViewById(R.id.fullPayment_button);
         alreadyPaidEditText = findViewById(R.id.already_paid_tv);
+        alreadyPaidEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.equals("")) return;
+                int value = Integer.parseInt(s.toString());
+                mSeekBar.setProgress(value);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.equals("")) return;
+                int value = Integer.parseInt(s.toString());
+                mSeekBar.setProgress(value);
+            }
+        });
         debtNameEditText = findViewById(R.id.et_debt_name);
         debtUserEditText = findViewById(R.id.et_debt_user);
         debtDescriptionEditText = findViewById(R.id.et_debt_description);
@@ -163,14 +183,17 @@ public class AddDebtActivity extends AppCompatActivity {
     }
 
     public void onSaveButtonClicked() {
-        //TODO FIX EMPTY
         String name = debtNameEditText.getText().toString();
         String user = debtUserEditText.getText().toString();
         String description = debtDescriptionEditText.getText().toString();
         String quantityString = debtQuantityEditText.getText().toString();
-        if(isQuantityStringEmpty(quantityString)) return;
+        if(isQuantityStringEmpty(quantityString)) {
+            Toast.makeText(this,"Empty Fields!", Toast.LENGTH_SHORT).show();
+            return;
+        }
         int quantity = Integer.valueOf(debtQuantityEditText.getText().toString());
-        int qPaid = mSeekBar.getProgress();
+//        int qPaid = mSeekBar.getProgress();
+        int qPaid = Integer.parseInt(alreadyPaidEditText.getText().toString());
         if (!areIntCorrect(quantity, qPaid) || !areStringCorrect(name,user,description)){
             Toast.makeText(this,"Empty Fields!", Toast.LENGTH_SHORT).show();
             return;
