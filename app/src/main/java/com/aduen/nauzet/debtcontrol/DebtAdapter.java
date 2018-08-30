@@ -23,11 +23,9 @@ import java.util.Locale;
 
 public class DebtAdapter extends RecyclerView.Adapter<DebtAdapter.DebtViewHolder> {
 
-    //private static final String DATE_FORMAT = "dd/MM/yyy";
     final private ItemClickListener mItemClickListener;
     private List<DebtEntry> mDebtEntries;
     private Context mContext;
-    //private SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
 
     public DebtAdapter(Context context, ItemClickListener listener) {
         mContext = context;
@@ -37,9 +35,8 @@ public class DebtAdapter extends RecyclerView.Adapter<DebtAdapter.DebtViewHolder
     @NonNull
     @Override
     public DebtViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        // Inflate the task_layout to a view
-        View view = LayoutInflater.from(mContext)
-                .inflate(R.layout.debt_layout, parent, false);
+           View view = LayoutInflater.from(mContext)
+                    .inflate(R.layout.debt_layout, parent, false);
 
         return new DebtViewHolder(view);
     }
@@ -55,6 +52,9 @@ public class DebtAdapter extends RecyclerView.Adapter<DebtAdapter.DebtViewHolder
         int state = debtEntry.getState();
         int quantityLeft = quantity - qPaid;
         //Set values
+
+
+
         holder.debtUser.setText(user);
         holder.debtName.setText(name);
         holder.debtQuantity.setText(quantity + "€");

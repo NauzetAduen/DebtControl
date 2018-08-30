@@ -5,18 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_margin="2dp">
+    android:layout_margin="10dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="6"
+        android:weightSum="5"
         >
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/tv_debt_name_onList"
             style="@style/debt_name_style"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:text="@string/debt_name_label"
             android:maxWidth="40dp"/>
         <TextView
@@ -30,11 +30,9 @@
 
         <TextView
             android:layout_width="0dp"
-            android:textStyle="bold"
-            android:textAlignment="textStart"
             android:layout_height="wrap_content"
             android:id="@+id/tv_state_debt_onList"
-            style="@style/debt_style"
+            style="@style/debt_name_style"
             android:layout_weight="1"
             android:text="@string/state_label"
             />
@@ -44,8 +42,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/tv_quantity_debt_onList"
-            style="@style/debt_quantity_style"
-            android:textStyle="bold"
+            style="@style/debt_name_style"
+            android:textAlignment="textEnd"
             android:layout_weight="1"/>
         <TextView
             android:maxWidth="40dp"
@@ -53,11 +51,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/tv_quantityLeft_debt_onList"
-            style="@style/debt_quantity_style"
-            android:textStyle="bold"
+            style="@style/debt_name_style"
+            android:textAlignment="textEnd"
             android:layout_weight="1"/>
-    </LinearLayout>
 
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/colorPrimary">
+    </View>
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

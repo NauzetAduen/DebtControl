@@ -9,22 +9,18 @@
     </style>
 
     <style name="debt_style">
-        <item name="android:textSize">15sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">12sp</item>
     </style>
 
     <style name="debt_name_style" parent="debt_style">
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">12sp</item>
-    </style>
-    <style name="debt_quantity_style" parent="debt_style">
-        <item name="android:textAlignment">textEnd</item>
+        <item name="android:textSize">15sp</item>
     </style>
     <style name="add_debt_style">
         <item name="android:layout_marginBottom">12dp</item>
     </style>
-    <style name="radioButtons_style">
-        <item name="android:colorControlNormal">@color/white</item>
-        <item name="android:colorControlActivated">@color/colorPrimary</item>
+    <style name="debt_quantity_style" parent="debt_style">
+        <item name="android:textAlignment">textEnd</item>
     </style>
-
 </resources>

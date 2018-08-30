@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">DebtControl</string>
     <string name="add_button_description">Add a debt to your list</string>
-    <string name="debt_name_label">Debt Name</string>
+    <string name="debt_name_label">Name</string>
     <string name="description_label">Description</string>
     <string name="Quantity_label">Total</string>
     <string name="Quantity_left_label">Left</string>
