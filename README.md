@@ -14,9 +14,15 @@ Use the floating button to add a new debt.
 
 You can update every attribute.
 
+Partial payment.
+
 
 ## On Progress
-Partial payment.
+None
+
+## Future
+Global info
+Tabs
 
 
 
